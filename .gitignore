@@ -58,5 +58,5 @@ docker-compose.override.yml
 *.swp
 *.bak
 
-# 安全报告（可能包含敏感信息）
-ssh_security_report.md
+# 本地备忘录（不上传）
+memo.txt

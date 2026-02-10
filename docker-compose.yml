@@ -19,6 +19,15 @@ services:
     networks:
       - easybill-network
 
+  redis:
+    image: redis:7
+    container_name: easybill-redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - easybill-network
+
   backend:
     build:
       context: ./EasyBill-backend
@@ -26,9 +35,11 @@ services:
     container_name: easybill-backend
     restart: always
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/easybill_db?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/easybill_db?useSSL=false&serverTimezone=Asia/Shanghai&characterEncoding=utf8&allowPublicKeyRetrieval=true
       SPRING_DATASOURCE_USERNAME: easybill_user
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
+      SPRING_DATA_REDIS_HOST: redis
+      SPRING_DATA_REDIS_PORT: 6379
       DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY}
       JWT_SECRET: ${JWT_SECRET:-easybill_jwt_secret_key_change_in_production}
       JWT_EXPIRATION: 86400000
@@ -36,6 +47,7 @@ services:
       - "8080:8080"
     depends_on:
       - mysql
+      - redis
     networks:
       - easybill-network
 
