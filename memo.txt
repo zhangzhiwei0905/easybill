@@ -1,0 +1,10 @@
+服务器IP：119.29.175.95
+用户名：ubuntu
+密码：123456789Aa
+SSH端口：22
+
+root账号：root
+root密码：EasyBill@2024
+
+
+MySQL密码：easybill_password
